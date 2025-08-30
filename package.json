@@ -2,9 +2,9 @@
   "name": "smart-weather-ai",
   "version": "1.0.0",
   "description": "Smart Weather AI application with Gemini integration",
-  "main": "api/server.js",
+  "main": "api/gemini.js",
   "scripts": {
-    "start": "node api/server.js"
+    "start": "node api/gemini.js"
   },
   "keywords": [],
   "author": "",
