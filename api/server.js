@@ -53,7 +53,7 @@ if (process.env.NODE_ENV !== 'production') {
     const http = require('http');
     const path = require('path');
 
-    const serve = serveStatic(path.join(__dirname, 'public'), { 'index': ['index.html'] });
+    const serve = serveStatic(path.join(__dirname, '../public'), { 'index': ['index.html'] });
 
     const server = http.createServer(function onRequest (req, res) {
         // Проверяем, является ли запрос к API
