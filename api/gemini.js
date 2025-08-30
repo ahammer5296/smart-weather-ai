@@ -8,8 +8,8 @@ app.use(cors());
 app.use(express.json());
 
 // Vercel будет направлять запросы к /api/gemini в этот файл.
-// Внутренний маршрут теперь должен быть корневым ('/').
-app.post('/', async (req, res) => {
+// Express внутри функции по-прежнему видит полный путь.
+app.post('/api/gemini', async (req, res) => {
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
     const { prompt } = req.body;
 
