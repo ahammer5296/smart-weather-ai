@@ -413,8 +413,20 @@ document.addEventListener('DOMContentLoaded', () => {
             logMessage(`Ответ прокси-сервера (Gemini) статус: ${response.status} ${response.statusText}`);
 
             if (!response.ok) {
-                const errorData = await response.json();
-                logMessage(`Ошибка от прокси-сервера (Gemini): ${JSON.stringify(errorData)}`, 'error');
+                // Сначала пытаемся получить ответ как текст
+                const errorText = await response.text();
+                // Выводим его в наш новый лог-контейнер
+                const logContainer = document.getElementById('log-container');
+                if (logContainer) {
+                    logContainer.textContent = `--- RAW SERVER RESPONSE ---\n\n${errorText}`;
+                }
+                // Теперь пытаемся парсить как JSON для стандартной ошибки
+                try {
+                    const errorData = JSON.parse(errorText);
+                    logMessage(`Ошибка от прокси-сервера (Gemini): ${JSON.stringify(errorData)}`, 'error');
+                } catch (e) {
+                    logMessage(`Не удалось распарсить JSON из ответа об ошибке. Ответ: ${errorText}`, 'error');
+                }
                 throw new Error(`Ошибка AI: ${response.statusText}`);
             }
 
